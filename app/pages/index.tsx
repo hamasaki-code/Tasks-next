@@ -1,8 +1,7 @@
-"use client"; // クライアントコンポーネントとしてマーク
-
+// /pages/index.tsx
 import React, { useState } from 'react';
-import TaskForm from './components/TaskForm';
-import TaskItem from './components/TaskItem';
+import TaskItem from '../components/TaskItem';
+import TaskForm from '../components/TaskForm';
 
 interface Task {
   id: number;
@@ -13,37 +12,35 @@ interface Task {
 const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const addTask = (taskName: string) => {
-    const newTask = { id: Date.now(), name: taskName, completed: false };
+  const handleAddTask = (taskName: string) => {
+    const newTask: Task = { id: Date.now(), name: taskName, completed: false };
     setTasks([...tasks, newTask]);
   };
 
-  const toggleTask = (id: number) => {
-    setTasks(tasks.map(task => 
+  const handleToggleTask = (id: number) => {
+    setTasks(tasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   };
 
-  const deleteTask = (id: number) => {
+  const handleDeleteTask = (id: number) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">タスク管理アプリ</h1>
-      
-      <TaskForm onAddTask={addTask} />
-
-      <ul className="list-disc pl-5">
+      <TaskForm onAddTask={handleAddTask} />
+      <div>
         {tasks.map(task => (
           <TaskItem 
-            key={task.id} 
-            task={task} 
-            onToggle={toggleTask} 
-            onDelete={deleteTask} 
+            key={task.id}
+            task={task}
+            onToggle={handleToggleTask}
+            onDelete={handleDeleteTask}
           />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
