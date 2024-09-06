@@ -9,17 +9,27 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => {
   return (
-    <li className="flex justify-between items-center mb-2">
+    //カードデザイン: p-4 mb-4 rounded-lg shadow-md を使用してタスクをカードの
+    //ように表示しています。余白やシャドウを使うことで、各タスクが他の要素から
+    //浮き上がるように見えます。
+    <div 
+      className={`flex justify-between items-center p-4 mb-4 rounded-lg shadow-md 
+        ${task.completed ? 'bg-gray-200 text-gray-500 line-through' : 'bg-white'} 
+        hover:bg-gray-100 transition-all duration-300 ease-in-out`}
+    >
       <span 
-        className={`cursor-pointer ${task.completed ? 'line-through text-gray-500' : ''}`}
+        className={`cursor-pointer text-lg font-medium`}
         onClick={() => onToggle(task.id)}
       >
         {task.name}
       </span>
-      <button onClick={() => onDelete(task.id)} className="text-red-500">
-        削除
+      <button 
+        onClick={() => onDelete(task.id)} 
+        className="bg-red-500 text-white px-3 py-1 rounded-lg shadow hover:bg-red-600 transition-colors duration-200"
+      >
+        Delete
       </button>
-    </li>
+    </div>
   );
 };
 
