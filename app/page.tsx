@@ -1,5 +1,4 @@
-"use client"; // クライアントコンポーネントとしてマーク
-
+"use client";
 import React, { useState } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskItem from './components/TaskItem';
@@ -29,21 +28,23 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">タスク管理アプリ</h1>
-      
-      <TaskForm onAddTask={addTask} />
+    <div className="bg-animated min-h-screen flex items-center justify-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-4">Task Manager</h1>
+        
+        <TaskForm onAddTask={addTask} />
 
-      <ul className="list-disc pl-5">
-        {tasks.map(task => (
-          <TaskItem 
-            key={task.id} 
-            task={task} 
-            onToggle={toggleTask} 
-            onDelete={deleteTask} 
-          />
-        ))}
-      </ul>
+        <ul className="list-disc pl-5">
+          {tasks.map(task => (
+            <TaskItem 
+              key={task.id} 
+              task={task} 
+              onToggle={toggleTask} 
+              onDelete={deleteTask} 
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
